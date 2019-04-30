@@ -1,0 +1,5 @@
+python-jsonrpc
+pymongo
+pika
+requires
+redis==2.10.6
