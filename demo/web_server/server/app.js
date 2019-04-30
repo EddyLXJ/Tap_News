@@ -1,15 +1,14 @@
 var createError = require('http-errors');
-var config = require('./config');
-require('./models/main').connect(config.mongoDbUri);
 var passport = require('passport');
 var express = require('express');
 var path = require('path');
 var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
 var authRouter = require('./routes/auth');
+var config = require('./config');
+require('./models/main').connect(config.mongoDbUri);
 var app = express();
 var cors = require('cors');
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,13 +21,14 @@ app.use(cors());
 
 
 app.use(passport.initialize());
-var localSignupStrategy = require('./passport/signup_passport');
 var localLoginStrategy = require('./passport/login_passport');
+var localSignupStrategy = require('./passport/signup_passport');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
+
 const authCheckMiddleware = require('./middleware/auth_checker');
-app.use('/news', authCheckMiddleware());
+app.use('/news', authCheckMiddleware);
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);

@@ -1,4 +1,5 @@
-const User = require('mongoose').model('User');
+const User = require('../models/user');
+// const User = require('mongoose').model('User');
 const PassportLocalStrategy = require('passport-local').Strategy;
 
 module.exports = new PassportLocalStrategy({
@@ -11,6 +12,7 @@ module.exports = new PassportLocalStrategy({
         email: email.trim(),
         password: password.trim(),
     };
+    console.log("12345" + userData);
 
     const newUser = new User(userData);
     newUser.save((err) => {

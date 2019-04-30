@@ -2,8 +2,10 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const validator = require('validator');
+var bodyParser = require("body-parser");
+var jsonParser = bodyParser.json();
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup',jsonParser, (req, res, next) => {
     const validationResult = validateSignupForm(req.body);
     if (!validationResult.success) {
         console.log('validationResult failed');
@@ -40,7 +42,7 @@ router.post('/signup', (req, res, next) => {
     })(req, res, next);
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login',jsonParser, (req, res, next) => {
     const validationResult = validateLoginForm(req.body);
     if (!validationResult.success) {
         return res.status(400).json({
@@ -75,7 +77,7 @@ router.post('/login', (req, res, next) => {
 });
 
 function validateSignupForm(payload) {
-    console.log(payload);
+    console.log("------" + payload);
     const errors = {};
     let isFormVaild = true;
     let message = '';
@@ -102,7 +104,7 @@ function validateSignupForm(payload) {
 }
 
 function validateLoginForm(payload) {
-    console.lig(payload);
+    console.log(payload);
     const errors = {};
     let isFormValid = true;
     let message = '';

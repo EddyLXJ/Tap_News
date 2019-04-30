@@ -34,3 +34,6 @@ UserSchema.pre('save', function saveHook(next) {
         });
     });
 });
+
+var User = mongoose.model("User", UserSchema);
+module.exports = User;
