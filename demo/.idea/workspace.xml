@@ -9,6 +9,13 @@
       <change afterPath="$PROJECT_DIR$/web_server/client/src/Signup/SignupForm.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/web_server/client/src/Signup/SignupPage.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/web_server/client/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/cloudAMQP_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/cloudAMQP_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/mongodb_client_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/mongodb_client_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/news_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/news_api_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news_pipeline/news_monitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/news_pipeline/news_monitor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news_pipeline/scrapers/cnn_news_scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/news_pipeline/scrapers/cnn_news_scraper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_server/client" beforeDir="false" afterPath="$PROJECT_DIR$/web_server/client" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_server/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/web_server/client/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_server/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/web_server/client/package-lock.json" afterDir="false" />
@@ -26,7 +33,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web_server/server/middleware/auth_checker.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="560">
@@ -71,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+            <state relative-caret-position="320">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -177,6 +184,11 @@
               <item name="demo" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="demo" type="462c0819:PsiDirectoryNode" />
+              <item name="news_pipeline" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -215,7 +227,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1556411750790</updated>
-      <workItem from="1556411753134" duration="22437000" />
+      <workItem from="1556411753134" duration="25365000" />
     </task>
     <task id="LOCAL-00001" summary="add Base">
       <created>1556412358372</created>
@@ -228,7 +240,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22437000" />
+    <option name="totallyTimeSpent" value="25365000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="130" y="-8" width="3710" height="2168" extended-state="6" />
@@ -451,13 +463,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web_server/server/middleware/auth_checker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="14" column="55" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web_server/server/passport/signup_passport.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="560">
@@ -495,8 +500,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+        <state relative-caret-position="320">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web_server/server/middleware/auth_checker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="14" column="55" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
         </state>
       </provider>
     </entry>

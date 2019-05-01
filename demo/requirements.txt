@@ -3,3 +3,7 @@ pymongo
 pika
 requires
 redis==2.10.6
+lxml
+python-dateutil
+sklearn
+newspaper3k

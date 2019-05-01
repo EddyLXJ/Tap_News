@@ -1,5 +1,6 @@
 import requests
 from json import loads
+import json
 
 NEWS_API_ENDPOINT = 'https://newsapi.org/v2/'
 NEWS_API_KEY = 'efabc3e32bbf466083e909e626150e43'
@@ -16,7 +17,7 @@ def getNewsFromSource(sources=DEFAULT_SOURCES):
         payload = {'apiKey' : NEWS_API_KEY,
                     'sources' : source}
         response = requests.get(buildUrl(), params = payload)
-        res_json = loads(response.content)
+        res_json = json.loads(response.content.decode('utf-8'))
 
         if(res_json is not None and res_json['status'] == 'ok' and res_json['totalResults'] != 0):
             for news in res_json['articles']:

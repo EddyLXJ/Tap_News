@@ -14,7 +14,7 @@ REDIS_PORT = 6379
 NEWS_TIME_OUT_IN_SECONDS = 3600 * 24
 SLEEP_TIME_IN_SECONDS = 10
 
-SCRAPE_NEWS_TASK_QUEUE_URL = "amqp://ipknqcnz:XK0H9bmeYmg_bu5rUOhVt914mCK9Vesa@spider.rmq.cloudamqp.com/ipknqcnz"
+SCRAPE_NEWS_TASK_QUEUE_URL = "amqp://sijpefxd:bA3nwVVE10UXMNGmm6u9Po4W5QjslspG@llama.rmq.cloudamqp.com/sijpefxd"
 SCRAPE_NEWS_TASK_QUEUE_NAME = "tap-news-scrape-news-task-queue"
 
 NEWS_SOURCES = [
@@ -30,20 +30,22 @@ while True:
     num_of_new_news = 0
 
     for news in news_list:
-        news_digest = hashlib.md5(news['title'].encode('utf-8')).digest().encode('base64')
 
+        news_digest = hashlib.md5(news['title'].encode()).hexdigest()
+
+        print(type(news_digest))
         if redis_client.get(news_digest) is None:
+
             num_of_new_news += 1
             news['digest'] = news_digest
+            if news['publishedAt'] is None:
+                # YYYY-MM
+                news['publishedAt'] = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:SZ')
 
-        if news['publishedAt'] is None:
-            # YYYY-MM
-            news['publishedAt'] = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:SZ')
+            redis_client.set(news_digest, news)
+            redis_client.expire(news_digest, NEWS_TIME_OUT_IN_SECONDS)
 
-        redis_client.set(news_digest, news)
-        redis_client.expire(news_digest, NEWS_TIME_OUT_IN_SECONDS)
-
-        cloudAMQP_client.sendMessage(news)
-    print "Fetched %d new news." % num_of_new_news
+            cloudAMQP_client.sendMessage(news)
+    print("Fetched %d new news." % num_of_new_news)
 
     cloudAMQP_client.sleep(SLEEP_TIME_IN_SECONDS)
