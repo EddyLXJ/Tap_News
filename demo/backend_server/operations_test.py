@@ -3,8 +3,16 @@ import os
 import sys
 
 from sets import Set
+CLICK_LOGS_TABLE_NAME = 'click_logs'
+
+LOG_CLICKS_TASK_QUEUE_URL = "amqp://iexlisxy:9s18YA43iqNcjIVhxdBhaq269Kw0gqwn@crocodile.rmq.cloudamqp.com/iexlisxy"
+LOG_CLICKS_TASK_QUEUE_NAME = "tap-news-log-clicks-task-queue"
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
+from cloudAMQP_client import CloudAMQPClient
+cloudAMQP_client = CloudAMQPClient(LOG_CLICKS_TASK_QUEUE_URL, LOG_CLICKS_TASK_QUEUE_NAME)
+
+
 import mongodb_client
 
 def test_getNewsSummariesForUser_Basic():
@@ -26,6 +34,30 @@ def test_getNewsSummariesForUser_pagination():
     assert len(digests_page_1_set.intersection(digests_page_2_set)) == 0
     print 'test_getNewsSummariesForUser_pagination passed'
 
+def test_logNewsClickForUser_basic():
+    db = mongodb_client.get_db()
+    db[CLICK_LOGS_TABLE_NAME].delete_many({'userId': "test"})
+
+    operations.logNewsClickForUser('test', 'test_news')
+
+    record = list(db[CLICK_LOGS_TABLE_NAME].find().sort([('timestamp', -1)]).limit(1))[0]
+
+    assert record is not None
+    assert record['userId'] == 'test'
+    assert record['newsId'] == 'test_news'
+    assert record['timestamp'] is not None
+
+    db[CLICK_LOGS_TABLE_NAME].delete_many({"userId": "test"})
+
+    msg = cloudAMQP_client.getMessage()
+    assert msg is not None
+    assert msg['userId'] == 'test'
+    assert msg['newsId'] == 'test_news'
+    assert msg['timestamp'] is not None
+
+    print 'test_logNewsClickForUser_basic passed'
+
 if __name__ == '__main__':
     test_getNewsSummariesForUser_Basic()
     test_getNewsSummariesForUser_pagination()
+    test_logNewsClickForUser_basic()

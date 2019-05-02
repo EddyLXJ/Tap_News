@@ -59,3 +59,13 @@ def getNewsSummariesForUser(user_id, page_num):
 
         sliced_news = total_news[begin_index:end_index]
     return json.loads(dumps(sliced_news))
+
+def logNewsClickForUser(user_id, news_id):
+    message = {'userId': user_id, 'newsId': news_id, 'timestamp': datetime.utcnow()}
+
+    db = mongodb_client.get_db()
+    db[CLICK_LOGS_TABLE_NAME].insert(message)
+
+    # Send log task to machine learning service for prefiction
+    message = {'userId': user_id, 'newsId': news_id, 'timestamp': str(datetime.utcnow())}
+    cloudAMQP_client.sendMessage(message)
