@@ -18,7 +18,13 @@ SCRAPE_NEWS_TASK_QUEUE_URL = "amqp://sijpefxd:bA3nwVVE10UXMNGmm6u9Po4W5QjslspG@l
 SCRAPE_NEWS_TASK_QUEUE_NAME = "tap-news-scrape-news-task-queue"
 
 NEWS_SOURCES = [
-    'cnn'
+    'cnn',
+    'bbc-news',
+    'bloomberg',
+    'espn',
+    'ign',
+    'techcrunch',
+    'the-new-york-times'
 ]
 
 redis_client = redis.StrictRedis(REDIS_HOST, REDIS_PORT)
@@ -30,10 +36,7 @@ while True:
     num_of_new_news = 0
 
     for news in news_list:
-
         news_digest = hashlib.md5(news['title'].encode()).hexdigest()
-
-        print(type(news_digest))
         if redis_client.get(news_digest) is None:
 
             num_of_new_news += 1
