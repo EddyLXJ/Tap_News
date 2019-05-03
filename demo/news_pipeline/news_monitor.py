@@ -24,7 +24,12 @@ NEWS_SOURCES = [
     'espn',
     'ign',
     'techcrunch',
-    'the-new-york-times'
+    'the-new-york-times',
+    'australian-financial-review',
+    'abc-news',
+    'the-hill',
+    'nbc-news',
+    'fox-news'
 ]
 
 redis_client = redis.StrictRedis(REDIS_HOST, REDIS_PORT)
@@ -36,7 +41,7 @@ while True:
     num_of_new_news = 0
 
     for news in news_list:
-        news_digest = hashlib.md5(news['title'].encode()).hexdigest()
+        news_digest = hashlib.md5(news['title'].encode('utf-8')).digest().encode('base64')
         if redis_client.get(news_digest) is None:
 
             num_of_new_news += 1
@@ -44,7 +49,7 @@ while True:
             if news['publishedAt'] is None:
                 # YYYY-MM
                 news['publishedAt'] = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:SZ')
-
+            print(news)
             redis_client.set(news_digest, news)
             redis_client.expire(news_digest, NEWS_TIME_OUT_IN_SECONDS)
 

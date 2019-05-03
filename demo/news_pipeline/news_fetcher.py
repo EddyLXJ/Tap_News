@@ -1,12 +1,14 @@
 # -*- coding utf-8 -*-
 import os
 import sys
-from newspaper import Article
+# from newspaper.newspaper import Article
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'scrapers'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'newspaper-python-2-head/newspaper'))
+from article import Article
 
-from cloudAMQP_client import CloudAMQPClient
+from cloudAMQP_client_python import CloudAMQPClient
 
 DEDUPE_NEXS_TASK_QUEUE_URL = "amqp://bxpjqpbr:zrevZ4ebxX4SrWME36DkefBfaMkNZx48@llama.rmq.cloudamqp.com/bxpjqpbr"
 DEDUPE_NEXS_TASK_QUEUE_NAME = "tap-news-scrape-news-task-queue"
@@ -25,10 +27,10 @@ def handle_message(msg):
 
     task = msg
 
-    article = Article(task['url'])
-    article.download()
-    article.parse()
-    task['text'] = article.text
+    article1 = Article(task['url'])
+    article1.download()
+    article1.parse()
+    task['text'] = article1.text
     dedupe_news_queue_client.sendMessage(task)
 
 
